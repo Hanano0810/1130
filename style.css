@@ -486,3 +486,91 @@ a.work:active .work-image { transform: scale(0.98); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: 0.01s !important; }
 }
+
+/* ---------- ② ミニゲーム（人ごと） ---------- */
+.g-canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 300 / 420;
+  border: 1px solid var(--ink);
+  border-radius: 6px;
+  touch-action: none; /* なぞってもページがスクロールしないように */
+  user-select: none;
+  -webkit-user-select: none;
+}
+.g-btn {
+  margin-top: 12px;
+  padding: 10px 40px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--main);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+}
+.g-btn.sub {
+  padding: 6px 20px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font-size: 0.85rem;
+}
+.g-btn[hidden] { display: none; }
+.g-miss { animation: shake 0.35s ease-in-out; }
+
+/* もぐらたたき */
+.holes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.hole {
+  position: relative;
+  aspect-ratio: 1;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 70%, #3d3128 0 55%, #6b5a48 56%);
+  touch-action: manipulation;
+}
+.mole {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  transform: translateY(100%);
+  transition: transform 0.12s ease-out;
+}
+.hole.up .mole { transform: translateY(0); }
+.hole.hit { background: radial-gradient(circle at 50% 70%, var(--main) 0 55%, #6b5a48 56%); }
+
+/* 数字タッチ・色ちがい・ライトアウト */
+.tiles { display: grid; grid-template-columns: repeat(var(--n, 4), 1fr); gap: 6px; }
+.tile {
+  aspect-ratio: 1;
+  padding: 0;
+  border: 1px solid var(--ink);
+  border-radius: 4px;
+  background: #fffaf2;
+  color: var(--ink);
+  font-family: var(--en);
+  font-weight: 800;
+  font-size: 1.3rem;
+  touch-action: manipulation;
+}
+.tile.num.done { background: var(--main); color: #fff; opacity: 0.35; }
+.color-tiles .tile { border: 0; }
+.lights .tile { background: #3a3540; transition: background 0.15s, box-shadow 0.15s; }
+.lights .tile.on { background: #ffd86b; box-shadow: 0 0 14px rgba(255, 216, 107, 0.8); }
+
+/* 光の順番おぼえ */
+.pads { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.pad {
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 18px;
+  background: var(--c);
+  opacity: 0.4;
+  transition: opacity 0.12s, transform 0.12s, box-shadow 0.12s;
+  touch-action: manipulation;
+}
+.pad.lit { opacity: 1; transform: scale(1.04); box-shadow: 0 0 22px var(--c); }
