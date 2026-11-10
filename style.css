@@ -240,6 +240,20 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 .game-msg.big { font-family: var(--en); font-size: 1.4rem; }
 .game-tip { margin: 6px 0 0; color: var(--sub); font-size: 0.8rem; }
+/* ゲームをとばして手紙へ（いつでも押せる） */
+.skip-btn {
+  min-height: 44px;
+  margin-top: 4px;
+  padding: 0 12px;
+  border: 0;
+  background: none;
+  color: var(--sub, #888);
+  font: inherit;
+  font-size: 0.8rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
 
 /* ---------- ③ ひらくアニメーション ---------- */
 .opening { transition: transform 0.5s ease-in 1.4s, opacity 0.5s ease-in 1.4s; }

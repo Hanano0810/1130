@@ -7,7 +7,7 @@
   <title>ゆうと</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
   <main id="app"></main>
@@ -76,8 +76,10 @@
             ${body}
             <p class="game-msg" aria-live="polite"></p>
             <p class="game-tip">${tip}</p>
+            <button class="skip-btn" type="button">スキップして手紙をひらく</button>
           </div>
         </section>`, "is-cover");
+      app.querySelector(".skip-btn").addEventListener("click", renderOpening);
       return app.querySelector(".game-msg");
     }
     function bump(el, n) {
@@ -92,7 +94,8 @@
     }
     function clearGame(msg, text = "CLEAR!") {
       say(msg, text, true);
-      setTimeout(renderOpening, 1500);
+      // スキップで先に進んでいたら、二重にひらかない
+      setTimeout(() => { if (msg.isConnected) renderOpening(); }, 1500);
     }
     function shake(el) {
       el.classList.remove("g-miss");
@@ -126,6 +129,7 @@
     // 短い効果音
     let audio;
     function beep(freq, ms = 120) {
+      if (!app.querySelector(".game-card")) return; // ゲーム画面を出たら鳴らさない
       try {
         audio = audio || new (window.AudioContext || window.webkitAudioContext)();
         const o = audio.createOscillator(), v = audio.createGain();
