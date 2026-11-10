@@ -8,10 +8,11 @@
   --ink: #111;
   --sub: #6b6459;
   --line: #d8cdbb;
-  --en: "Inter", "Zen Kaku Gothic New", sans-serif;
+  --en: "Zen Kaku Gothic New", "Hiragino Sans", sans-serif;
 }
 
 * { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; } /* iPhoneで文字が勝手に大きくならないように */
 
 body {
   margin: 0;
@@ -292,9 +293,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 .paper-body {
   white-space: pre-wrap;
-  line-height: 2.2em;
-  background: linear-gradient(transparent calc(2.2em - 1px), var(--line) calc(2.2em - 1px)) 0 0 / 100% 2.2em;
+  font-size: 16px;
+  line-height: 36px;
+  /* 罫線は文字の行と同じ36pxおき。1枚の模様で描くので、長い手紙でも線がずれて文字に重ならない */
+  background: repeating-linear-gradient(to bottom, transparent 0 35px, var(--line) 35px 36px);
 }
+.paper-body .emo { line-height: 1; } /* 絵文字で行が高くならないように */
 .paper-from { margin: 1em 0 28px; text-align: right; color: var(--sub); }
 .know-btn {
   margin-top: auto;
